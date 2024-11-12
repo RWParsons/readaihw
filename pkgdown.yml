@@ -2,7 +2,7 @@ pandoc: 3.1.11
 pkgdown: 2.1.1
 pkgdown_sha: ~
 articles: {}
-last_built: 2024-11-12T01:32Z
+last_built: 2024-11-12T03:30Z
 urls:
   reference: https://rwparsons.github.io/readaihw/reference
   article: https://rwparsons.github.io/readaihw/articles
