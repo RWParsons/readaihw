@@ -5,6 +5,8 @@
 <url><loc>https://rwparsons.github.io/readaihw/LICENSE-text.html</loc></url>
 <url><loc>https://rwparsons.github.io/readaihw/LICENSE.html</loc></url>
 <url><loc>https://rwparsons.github.io/readaihw/SUPPORT.html</loc></url>
+<url><loc>https://rwparsons.github.io/readaihw/articles/finding-datasets.html</loc></url>
+<url><loc>https://rwparsons.github.io/readaihw/articles/index.html</loc></url>
 <url><loc>https://rwparsons.github.io/readaihw/authors.html</loc></url>
 <url><loc>https://rwparsons.github.io/readaihw/index.html</loc></url>
 <url><loc>https://rwparsons.github.io/readaihw/reference/call_aihw_api.html</loc></url>
@@ -13,7 +15,9 @@
 <url><loc>https://rwparsons.github.io/readaihw/reference/get_measure_categories.html</loc></url>
 <url><loc>https://rwparsons.github.io/readaihw/reference/get_measure_data.html</loc></url>
 <url><loc>https://rwparsons.github.io/readaihw/reference/get_measure_download_codes.html</loc></url>
+<url><loc>https://rwparsons.github.io/readaihw/reference/get_measures_from_category.html</loc></url>
 <url><loc>https://rwparsons.github.io/readaihw/reference/index.html</loc></url>
+<url><loc>https://rwparsons.github.io/readaihw/reference/read_dataset_ids.html</loc></url>
 <url><loc>https://rwparsons.github.io/readaihw/reference/read_flat_data_extract.html</loc></url>
 <url><loc>https://rwparsons.github.io/readaihw/reference/readaihw-package.html</loc></url>
 </urlset>
