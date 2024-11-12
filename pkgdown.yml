@@ -3,7 +3,7 @@ pkgdown: 2.1.1
 pkgdown_sha: ~
 articles:
   finding-datasets: finding-datasets.html
-last_built: 2024-11-12T05:30Z
+last_built: 2024-11-12T05:44Z
 urls:
   reference: https://rwparsons.github.io/readaihw/reference
   article: https://rwparsons.github.io/readaihw/articles

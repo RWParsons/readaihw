@@ -73,17 +73,17 @@
 </h2>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># get the available datasets</span></span>
-<span><span class="va">d_datasets</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/get_datasets.html">get_datasets</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span><span class="va">d_datasets</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/get_datasets.html">get_datasets</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html" class="external-link">rename</a></span><span class="op">(</span></span>
 <span>    measure_code <span class="op">=</span> <span class="va">reported_measure_summary_measure_summary_measure_code</span>,</span>
-<span>    measure_name <span class="op">=</span> <span class="va">reported_measure_summary_measure_summary_measure_name</span>, </span>
+<span>    measure_name <span class="op">=</span> <span class="va">reported_measure_summary_measure_summary_measure_name</span>,</span>
 <span>    condition_code <span class="op">=</span> <span class="va">reported_measure_summary_reported_measure_code</span>,</span>
 <span>    condition_name <span class="op">=</span> <span class="va">reported_measure_summary_reported_measure_name</span></span>
 <span>  <span class="op">)</span></span>
 <span></span>
 <span><span class="co"># search the condition_name for Mental Health related string</span></span>
-<span><span class="va">d_datasets</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_detect.html" class="external-link">str_detect</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/chartr.html" class="external-link">tolower</a></span><span class="op">(</span><span class="va">condition_name</span><span class="op">)</span>, <span class="st">"mental"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span><span class="va">d_datasets</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_detect.html" class="external-link">str_detect</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/chartr.html" class="external-link">tolower</a></span><span class="op">(</span><span class="va">condition_name</span><span class="op">)</span>, <span class="st">"mental"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html" class="external-link">glimpse</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Rows: 12</span></span>
 <span><span class="co">#&gt; Columns: 8</span></span>
@@ -97,17 +97,16 @@
 <span><span class="co">#&gt; $ reporting_start_date <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "2011-07-01", "2012-07-01", "2013-07-01", "2014-0…</span></span>
 <span></span>
 <span><span class="co"># extract the dataset IDs</span></span>
-<span><span class="va">dataset_ids</span> <span class="op">&lt;-</span> <span class="va">d_datasets</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_detect.html" class="external-link">str_detect</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/chartr.html" class="external-link">tolower</a></span><span class="op">(</span><span class="va">condition_name</span><span class="op">)</span>, <span class="st">"mental"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span><span class="va">dataset_ids</span> <span class="op">&lt;-</span> <span class="va">d_datasets</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_detect.html" class="external-link">str_detect</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/chartr.html" class="external-link">tolower</a></span><span class="op">(</span><span class="va">condition_name</span><span class="op">)</span>, <span class="st">"mental"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html" class="external-link">pull</a></span><span class="op">(</span><span class="va">data_set_id</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># read and combine the dataset_ids</span></span>
 <span><span class="va">d_mental_health_admissions</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/read_dataset_ids.html">read_dataset_ids</a></span><span class="op">(</span><span class="va">dataset_ids</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Joining with `by = join_by(data_set_id)`</span></span>
 <span></span>
 <span><span class="co"># aggregate by reporting period</span></span>
-<span><span class="va">d_mental_health_admissions</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">reporting_start_date</span>, <span class="va">reporting_end_date</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span><span class="va">d_mental_health_admissions</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">reporting_start_date</span>, <span class="va">reporting_end_date</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarize</a></span><span class="op">(</span>mental_health_admission_n <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="va">value</span><span class="op">)</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; `summarise()` has grouped output by 'reporting_start_date'. You can override</span></span>
 <span><span class="co">#&gt; using the `.groups` argument.</span></span>
