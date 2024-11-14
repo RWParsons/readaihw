@@ -42,7 +42,7 @@
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">read_dataset_ids</span><span class="op">(</span><span class="va">ids</span>, return_caveats <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">read_dataset_ids</span><span class="op">(</span><span class="va">ids</span>, return_caveats <span class="op">=</span> <span class="cn">FALSE</span>, tidy_data <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -58,6 +58,11 @@
 this data in a separate table. If <code>TRUE</code>, this will return a list with the
 two tables.</p></dd>
 
+
+<dt id="arg-tidy-data">tidy_data<a class="anchor" aria-label="anchor" href="#arg-tidy-data"></a></dt>
+<dd><p>A logical. Whether or not to tidy the data (rename
+columns and remove columns which only have one unique value).</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
@@ -68,26 +73,25 @@ two tables.</p></dd>
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># \donttest{</span></span></span>
 <span class="r-in"><span><span class="fu">read_dataset_ids</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 185 × 19</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    data_set_id data_set_name       reported_measure_sum…¹ reported_measure_sum…²</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>               <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> 1           CANCER 2011-12 - M… MYH0002                Median waiting time f…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> 1           CANCER 2011-12 - M… MYH0002                Median waiting time f…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> 1           CANCER 2011-12 - M… MYH0002                Median waiting time f…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> 1           CANCER 2011-12 - M… MYH0002                Median waiting time f…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> 1           CANCER 2011-12 - M… MYH0002                Median waiting time f…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> 1           CANCER 2011-12 - M… MYH0002                Median waiting time f…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> 1           CANCER 2011-12 - M… MYH0002                Median waiting time f…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> 1           CANCER 2011-12 - M… MYH0002                Median waiting time f…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> 1           CANCER 2011-12 - M… MYH0002                Median waiting time f…</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> 1           CANCER 2011-12 - M… MYH0002                Median waiting time f…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 185 × 15</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    data_id data_name                   start_date end_date reported_measure_code</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> 1       CANCER 2011-12 - Median wa… 2011-07-01 2012-06… MYH-RM0001           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> 1       CANCER 2011-12 - Median wa… 2011-07-01 2012-06… MYH-RM0001           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> 1       CANCER 2011-12 - Median wa… 2011-07-01 2012-06… MYH-RM0001           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> 1       CANCER 2011-12 - Median wa… 2011-07-01 2012-06… MYH-RM0001           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> 1       CANCER 2011-12 - Median wa… 2011-07-01 2012-06… MYH-RM0001           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> 1       CANCER 2011-12 - Median wa… 2011-07-01 2012-06… MYH-RM0001           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> 1       CANCER 2011-12 - Median wa… 2011-07-01 2012-06… MYH-RM0001           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> 1       CANCER 2011-12 - Median wa… 2011-07-01 2012-06… MYH-RM0001           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> 1       CANCER 2011-12 - Median wa… 2011-07-01 2012-06… MYH-RM0001           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> 1       CANCER 2011-12 - Median wa… 2011-07-01 2012-06… MYH-RM0001           </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 175 more rows</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ abbreviated names: ¹​reported_measure_summary_measure_summary_measure_code,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   ²​reported_measure_summary_measure_summary_measure_name</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 15 more variables: reported_measure_summary_reported_measure_code &lt;chr&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   reported_measure_summary_reported_measure_name &lt;chr&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   reporting_end_date &lt;chr&gt;, reporting_start_date &lt;chr&gt;, measure_code &lt;chr&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   peer_group_summary_reporting_unit_code &lt;chr&gt;, …</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># ℹ 10 more variables: reported_measure_name &lt;chr&gt;, unit_class_code &lt;chr&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   unit_class_name &lt;chr&gt;, unit_reporting_type_code &lt;chr&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   unit_reporting_type_name &lt;chr&gt;, unit_code &lt;chr&gt;, unit_name &lt;chr&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   unit_type_code &lt;chr&gt;, unit_type_name &lt;chr&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   median_waiting_time_for_surgery_for_malignant_cancer &lt;chr&gt;</span></span>
 <span class="r-in"><span><span class="co"># }</span></span></span>
 </code></pre></div>
     </div>

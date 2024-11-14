@@ -73,59 +73,53 @@
 </h2>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># get the available datasets</span></span>
-<span><span class="va">d_datasets</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/get_datasets.html">get_datasets</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html" class="external-link">rename</a></span><span class="op">(</span></span>
-<span>    measure_code <span class="op">=</span> <span class="va">reported_measure_summary_measure_summary_measure_code</span>,</span>
-<span>    measure_name <span class="op">=</span> <span class="va">reported_measure_summary_measure_summary_measure_name</span>,</span>
-<span>    condition_code <span class="op">=</span> <span class="va">reported_measure_summary_reported_measure_code</span>,</span>
-<span>    condition_name <span class="op">=</span> <span class="va">reported_measure_summary_reported_measure_name</span></span>
-<span>  <span class="op">)</span></span>
+<span><span class="va">d_datasets</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/get_datasets.html">get_datasets</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># search the condition_name for Mental Health related string</span></span>
 <span><span class="va">d_datasets</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_detect.html" class="external-link">str_detect</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/chartr.html" class="external-link">tolower</a></span><span class="op">(</span><span class="va">condition_name</span><span class="op">)</span>, <span class="st">"mental"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_detect.html" class="external-link">str_detect</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/chartr.html" class="external-link">tolower</a></span><span class="op">(</span><span class="va">reported_measure_name</span><span class="op">)</span>, <span class="st">"mental"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html" class="external-link">glimpse</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Rows: 12</span></span>
 <span><span class="co">#&gt; Columns: 8</span></span>
-<span><span class="co">#&gt; $ data_set_id          <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "904", "1329", "1336", "2735", "2742", "3515", "8…</span></span>
-<span><span class="co">#&gt; $ data_set_name        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "ADM 2011-12 - Number of admissions to hospital",…</span></span>
-<span><span class="co">#&gt; $ measure_code         <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "MYH0024", "MYH0024", "MYH0024", "MYH0024", "MYH0…</span></span>
-<span><span class="co">#&gt; $ measure_name         <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "Number of admissions to hospital", "Number of ad…</span></span>
-<span><span class="co">#&gt; $ condition_code       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "MYH-RM0216", "MYH-RM0216", "MYH-RM0216", "MYH-RM…</span></span>
-<span><span class="co">#&gt; $ condition_name       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "Mental health", "Mental health", "Mental health"…</span></span>
-<span><span class="co">#&gt; $ reporting_end_date   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "2012-06-30", "2013-06-30", "2014-06-30", "2015-0…</span></span>
-<span><span class="co">#&gt; $ reporting_start_date <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "2011-07-01", "2012-07-01", "2013-07-01", "2014-0…</span></span>
+<span><span class="co">#&gt; $ data_id               <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "904", "1329", "1336", "2735", "2742", "3515", "…</span></span>
+<span><span class="co">#&gt; $ data_name             <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "ADM 2011-12 - Number of admissions to hospital"…</span></span>
+<span><span class="co">#&gt; $ start_date            <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "2011-07-01", "2012-07-01", "2013-07-01", "2014-…</span></span>
+<span><span class="co">#&gt; $ end_date              <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "2012-06-30", "2013-06-30", "2014-06-30", "2015-…</span></span>
+<span><span class="co">#&gt; $ outcome_measure_code  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "MYH0024", "MYH0024", "MYH0024", "MYH0024", "MYH…</span></span>
+<span><span class="co">#&gt; $ outcome_measure_name  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "Number of admissions to hospital", "Number of a…</span></span>
+<span><span class="co">#&gt; $ reported_measure_code <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "MYH-RM0216", "MYH-RM0216", "MYH-RM0216", "MYH-R…</span></span>
+<span><span class="co">#&gt; $ reported_measure_name <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "Mental health", "Mental health", "Mental health…</span></span>
 <span></span>
 <span><span class="co"># extract the dataset IDs</span></span>
 <span><span class="va">dataset_ids</span> <span class="op">&lt;-</span> <span class="va">d_datasets</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_detect.html" class="external-link">str_detect</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/chartr.html" class="external-link">tolower</a></span><span class="op">(</span><span class="va">condition_name</span><span class="op">)</span>, <span class="st">"mental"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html" class="external-link">pull</a></span><span class="op">(</span><span class="va">data_set_id</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_detect.html" class="external-link">str_detect</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/chartr.html" class="external-link">tolower</a></span><span class="op">(</span><span class="va">reported_measure_name</span><span class="op">)</span>, <span class="st">"mental"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html" class="external-link">pull</a></span><span class="op">(</span><span class="va">data_id</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># read and combine the dataset_ids</span></span>
 <span><span class="va">d_mental_health_admissions</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/read_dataset_ids.html">read_dataset_ids</a></span><span class="op">(</span><span class="va">dataset_ids</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># aggregate by reporting period</span></span>
 <span><span class="va">d_mental_health_admissions</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">reporting_start_date</span>, <span class="va">reporting_end_date</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarize</a></span><span class="op">(</span>mental_health_admission_n <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="va">value</span><span class="op">)</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="co">#&gt; `summarise()` has grouped output by 'reporting_start_date'. You can override</span></span>
-<span><span class="co">#&gt; using the `.groups` argument.</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">unit_type_name</span> <span class="op">==</span> <span class="st">"Hospital"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarize</a></span><span class="op">(</span></span>
+<span>    mental_health_admission_n <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="va">number_of_admissions_to_hospital</span><span class="op">)</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
+<span>    .by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">start_date</span>, <span class="va">end_date</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 12 × 3</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># Groups:   reporting_start_date [12]</span></span></span>
-<span><span class="co">#&gt;    reporting_start_date reporting_end_date mental_health_admission_n</span></span>
-<span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                                  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> 2011-07-01           2012-06-30                            <span style="text-decoration: underline;">108</span>542</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> 2012-07-01           2013-06-30                            <span style="text-decoration: underline;">112</span>624</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> 2013-07-01           2014-06-30                            <span style="text-decoration: underline;">114</span>119</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> 2014-07-01           2015-06-30                            <span style="text-decoration: underline;">119</span>799</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> 2015-07-01           2016-06-30                            <span style="text-decoration: underline;">138</span>689</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> 2016-07-01           2017-06-30                            <span style="text-decoration: underline;">145</span>112</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> 2017-07-01           2018-06-30                            <span style="text-decoration: underline;">282</span>772</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> 2018-07-01           2019-06-30                            <span style="text-decoration: underline;">290</span>308</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> 2019-07-01           2020-06-30                            <span style="text-decoration: underline;">286</span>977</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> 2020-07-01           2021-06-30                            <span style="text-decoration: underline;">285</span>232</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">11</span> 2021-07-01           2022-06-30                            <span style="text-decoration: underline;">267</span>605</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">12</span> 2022-07-01           2023-06-30                            <span style="text-decoration: underline;">271</span>959</span></span></code></pre></div>
+<span><span class="co">#&gt;    start_date end_date   mental_health_admission_n</span></span>
+<span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                          <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> 2011-07-01 2012-06-30                    <span style="text-decoration: underline;">108</span>542</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> 2012-07-01 2013-06-30                    <span style="text-decoration: underline;">112</span>624</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> 2013-07-01 2014-06-30                    <span style="text-decoration: underline;">114</span>119</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> 2014-07-01 2015-06-30                    <span style="text-decoration: underline;">119</span>799</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> 2015-07-01 2016-06-30                    <span style="text-decoration: underline;">138</span>689</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> 2016-07-01 2017-06-30                    <span style="text-decoration: underline;">145</span>112</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> 2017-07-01 2018-06-30                    <span style="text-decoration: underline;">141</span>012</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> 2018-07-01 2019-06-30                    <span style="text-decoration: underline;">144</span>800</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> 2019-07-01 2020-06-30                    <span style="text-decoration: underline;">143</span>179</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> 2020-07-01 2021-06-30                    <span style="text-decoration: underline;">142</span>318</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">11</span> 2021-07-01 2022-06-30                    <span style="text-decoration: underline;">133</span>535</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">12</span> 2022-07-01 2023-06-30                    <span style="text-decoration: underline;">135</span>711</span></span></code></pre></div>
 </div>
   </main>
 </div>
