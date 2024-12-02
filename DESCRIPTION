@@ -1,7 +1,7 @@
 Package: readaihw
 Title: Read Hospital Data From the Australian Institute Of Health And Welfare
     Using The MyHospitals API
-Version: 0.0.1
+Version: 0.0.1.9000
 Authors@R: 
     person(given = "Rex", 
            family = "Parsons", 
