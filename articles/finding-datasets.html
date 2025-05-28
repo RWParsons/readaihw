@@ -20,7 +20,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">readaihw</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.1.9000</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -80,16 +80,16 @@
 <span><span class="va">d_datasets</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_detect.html" class="external-link">str_detect</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/chartr.html" class="external-link">tolower</a></span><span class="op">(</span><span class="va">reported_measure_name</span><span class="op">)</span>, <span class="st">"mental"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html" class="external-link">glimpse</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Rows: 12</span></span>
+<span><span class="co">#&gt; Rows: 13</span></span>
 <span><span class="co">#&gt; Columns: 8</span></span>
-<span><span class="co">#&gt; $ data_id               <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "904", "1329", "1336", "2735", "2742", "3515", "…</span></span>
+<span><span class="co">#&gt; $ data_id               <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "904"<span style="color: #949494;">, </span>"1329"<span style="color: #949494;">, </span>"1336"<span style="color: #949494;">, </span>"2735"<span style="color: #949494;">, </span>"2742"<span style="color: #949494;">, </span>"3515"<span style="color: #949494;">, </span>"…</span></span>
 <span><span class="co">#&gt; $ data_name             <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "ADM 2011-12 - Number of admissions to hospital"…</span></span>
-<span><span class="co">#&gt; $ start_date            <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "2011-07-01", "2012-07-01", "2013-07-01", "2014-…</span></span>
-<span><span class="co">#&gt; $ end_date              <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "2012-06-30", "2013-06-30", "2014-06-30", "2015-…</span></span>
-<span><span class="co">#&gt; $ outcome_measure_code  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "MYH0024", "MYH0024", "MYH0024", "MYH0024", "MYH…</span></span>
-<span><span class="co">#&gt; $ outcome_measure_name  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "Number of admissions to hospital", "Number of a…</span></span>
-<span><span class="co">#&gt; $ reported_measure_code <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "MYH-RM0216", "MYH-RM0216", "MYH-RM0216", "MYH-R…</span></span>
-<span><span class="co">#&gt; $ reported_measure_name <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "Mental health", "Mental health", "Mental health…</span></span>
+<span><span class="co">#&gt; $ start_date            <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "2011-07-01"<span style="color: #949494;">, </span>"2012-07-01"<span style="color: #949494;">, </span>"2013-07-01"<span style="color: #949494;">, </span>"2014-…</span></span>
+<span><span class="co">#&gt; $ end_date              <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "2012-06-30"<span style="color: #949494;">, </span>"2013-06-30"<span style="color: #949494;">, </span>"2014-06-30"<span style="color: #949494;">, </span>"2015-…</span></span>
+<span><span class="co">#&gt; $ outcome_measure_code  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "MYH0024"<span style="color: #949494;">, </span>"MYH0024"<span style="color: #949494;">, </span>"MYH0024"<span style="color: #949494;">, </span>"MYH0024"<span style="color: #949494;">, </span>"MYH…</span></span>
+<span><span class="co">#&gt; $ outcome_measure_name  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "Number of admissions to hospital"<span style="color: #949494;">, </span>"Number of a…</span></span>
+<span><span class="co">#&gt; $ reported_measure_code <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "MYH-RM0216"<span style="color: #949494;">, </span>"MYH-RM0216"<span style="color: #949494;">, </span>"MYH-RM0216"<span style="color: #949494;">, </span>"MYH-R…</span></span>
+<span><span class="co">#&gt; $ reported_measure_name <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "Mental health"<span style="color: #949494;">, </span>"Mental health"<span style="color: #949494;">, </span>"Mental health…</span></span>
 <span></span>
 <span><span class="co"># extract the dataset IDs</span></span>
 <span><span class="va">dataset_ids</span> <span class="op">&lt;-</span> <span class="va">d_datasets</span> <span class="op">|&gt;</span></span>
@@ -106,7 +106,7 @@
 <span>    mental_health_admission_n <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="va">number_of_admissions_to_hospital</span><span class="op">)</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
 <span>    .by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">start_date</span>, <span class="va">end_date</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 12 × 3</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 13 × 3</span></span></span>
 <span><span class="co">#&gt;    start_date end_date   mental_health_admission_n</span></span>
 <span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                          <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> 2011-07-01 2012-06-30                    <span style="text-decoration: underline;">108</span>542</span></span>
@@ -120,7 +120,8 @@
 <span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> 2019-07-01 2020-06-30                    <span style="text-decoration: underline;">143</span>179</span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> 2020-07-01 2021-06-30                    <span style="text-decoration: underline;">142</span>318</span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">11</span> 2021-07-01 2022-06-30                    <span style="text-decoration: underline;">133</span>535</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">12</span> 2022-07-01 2023-06-30                    <span style="text-decoration: underline;">135</span>711</span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">12</span> 2022-07-01 2023-06-30                    <span style="text-decoration: underline;">135</span>711</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">13</span> 2023-07-01 2024-06-30                    <span style="text-decoration: underline;">137</span>730</span></span></code></pre></div>
 </div>
   </main>
 </div>
@@ -132,7 +133,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
 </div>
 
     </footer>
