@@ -22,7 +22,7 @@
 
     <a class="navbar-brand me-2" href="index.html">readaihw</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.1.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.2</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -69,7 +69,7 @@
 <div class="section level2">
 <h2 id="example---ed-presentations">Example - ED presentations<a class="anchor" aria-label="anchor" href="#example---ed-presentations"></a>
 </h2>
-<p>This example gets data on hospital presentations and presents these counts as a graph for hospitals in the ACT local hospital network over time.</p>
+<p>This example gets data on hospital presentations and presents these counts as a graph for hospitals in the Metro South (Qld) local hospital network over time.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/RWParsons/readaihw" class="external-link">readaihw</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span>
@@ -77,15 +77,15 @@
 <span></span>
 <span><span class="va">ed_presentations</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/read_flat_data_extract.html">read_flat_data_extract</a></span><span class="op">(</span><span class="st">"MYH-ED"</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">act_hospital_codes</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/get_hospital_mappings.html">get_hospital_mappings</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span><span class="va">msh_hospital_codes</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/get_hospital_mappings.html">get_hospital_mappings</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span></span>
-<span>    <span class="va">local_hospital_network_lhn</span> <span class="op">==</span> <span class="st">"Australian Capital Territory"</span>,</span>
+<span>    <span class="va">local_hospital_network_lhn</span> <span class="op">==</span> <span class="st">"Metro South (Qld)"</span>,</span>
 <span>    <span class="va">type</span> <span class="op">==</span> <span class="st">"Hospital"</span></span>
 <span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html" class="external-link">pull</a></span><span class="op">(</span><span class="va">code</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">ed_presentations</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">reporting_unit_code</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="va">act_hospital_codes</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">reporting_unit_code</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="va">msh_hospital_codes</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span>date <span class="op">=</span> <span class="va">reporting_end_date</span>, hospital <span class="op">=</span> <span class="va">reporting_unit_name</span>, <span class="va">value</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="va">value</span><span class="op">)</span>, date <span class="op">=</span> <span class="fu">lubridate</span><span class="fu">::</span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/ymd.html" class="external-link">ymd</a></span><span class="op">(</span><span class="va">date</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarize</a></span><span class="op">(</span>count <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">value</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>, .by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">hospital</span>, <span class="va">date</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -95,7 +95,7 @@
 <span>  <span class="fu">facet_wrap</span><span class="op">(</span><span class="op">~</span> <span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_wrap.html" class="external-link">str_wrap</a></span><span class="op">(</span><span class="va">hospital</span>, <span class="fl">40</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">theme_bw</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">scale_y_continuous</span><span class="op">(</span>labels <span class="op">=</span> <span class="fu">scales</span><span class="fu">::</span><span class="fu">label_comma</span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">labs</span><span class="op">(</span>x <span class="op">=</span> <span class="st">""</span>, y <span class="op">=</span> <span class="st">"ED Presentations (n)"</span>, title <span class="op">=</span> <span class="st">"ED presentations in the ACT LHN"</span><span class="op">)</span></span></code></pre></div>
+<span>  <span class="fu">labs</span><span class="op">(</span>x <span class="op">=</span> <span class="st">""</span>, y <span class="op">=</span> <span class="st">"ED Presentations (n)"</span>, title <span class="op">=</span> <span class="st">"ED presentations in the Metro South (Qld) LHN"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="reference/figures/README-example-1.png" width="100%"></p>
 </div>
 </div>
