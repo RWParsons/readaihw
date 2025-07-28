@@ -7,7 +7,7 @@
 #' @return data
 #' @export
 #'
-#' @examplesIf interactive()  && curl::has_internet()
+#' @examplesIf interactive() && curl::has_internet()
 #' get_measures_from_category("MYH-CANCER")
 get_measures_from_category <- function(measure_category_code, trim = TRUE) {
   url <- as.character(glue::glue("measure-categories/{measure_category_code}/measures"))
@@ -35,7 +35,7 @@ get_measures_from_category <- function(measure_category_code, trim = TRUE) {
 #' @return data
 #' @export
 #'
-#' @examplesIf interactive()  && curl::has_internet()
+#' @examplesIf interactive() && curl::has_internet()
 #' read_dataset_ids(c(1, 2))
 read_dataset_ids <- function(ids, return_caveats = FALSE, tidy_data = TRUE) {
   d_datasets <- get_datasets(tidy_data = FALSE) |>
@@ -54,7 +54,7 @@ read_dataset_ids <- function(ids, return_caveats = FALSE, tidy_data = TRUE) {
 
   l <- list()
 
-  if(return_caveats) {
+  if (return_caveats) {
     d_combined <- dplyr::left_join(d_datasets, dframes$data, by = "data_set_id")
     l$caveats <- dframes$d_caveats
   } else {
@@ -65,7 +65,7 @@ read_dataset_ids <- function(ids, return_caveats = FALSE, tidy_data = TRUE) {
     d_combined <- tidy_dataset(d_combined)
   }
 
-  if(return_caveats) {
+  if (return_caveats) {
     l$data <- d_combined
     return(l)
   }

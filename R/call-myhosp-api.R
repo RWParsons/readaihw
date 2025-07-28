@@ -5,7 +5,7 @@
 #' @return something useful, usually a `data.frame`
 #' @export
 #'
-#' @examplesIf interactive()  && curl::has_internet()
+#' @examplesIf interactive() && curl::has_internet()
 #' call_myhosp_api("measure-downloads/myh-adm")
 call_myhosp_api <- function(api_url) {
   # Create the base request

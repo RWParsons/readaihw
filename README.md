@@ -34,8 +34,8 @@ pak::pkg_install("RWParsons/readaihw")
 ## Example - ED presentations
 
 This example gets data on hospital presentations and presents these
-counts as a graph for hospitals in the ACT local hospital network over
-time.
+counts as a graph for hospitals in the Metro South (Qld) local hospital
+network over time.
 
 ``` r
 library(readaihw)
@@ -44,15 +44,15 @@ library(ggplot2)
 
 ed_presentations <- read_flat_data_extract("MYH-ED")
 
-act_hospital_codes <- get_hospital_mappings() |>
+msh_hospital_codes <- get_hospital_mappings() |>
   filter(
-    local_hospital_network_lhn == "Australian Capital Territory",
+    local_hospital_network_lhn == "Metro South (Qld)",
     type == "Hospital"
   ) |>
   pull(code)
 
 ed_presentations |>
-  filter(reporting_unit_code %in% act_hospital_codes) |>
+  filter(reporting_unit_code %in% msh_hospital_codes) |>
   select(date = reporting_end_date, hospital = reporting_unit_name, value) |>
   mutate(value = as.numeric(value), date = lubridate::ymd(date)) |>
   summarize(count = sum(value, na.rm = TRUE), .by = c(hospital, date)) |>
@@ -62,7 +62,7 @@ ed_presentations |>
   facet_wrap(~ stringr::str_wrap(hospital, 40)) +
   theme_bw() +
   scale_y_continuous(labels = scales::label_comma()) +
-  labs(x = "", y = "ED Presentations (n)", title = "ED presentations in the ACT LHN")
+  labs(x = "", y = "ED Presentations (n)", title = "ED presentations in the Metro South (Qld) LHN")
 ```
 
 <img src="man/figures/README-example-1.png" width="100%" />

@@ -6,7 +6,7 @@ if (remake_fixtures) {
   }
 
   # remove all existing fixtures
-  purrr::map(list.files(file.path(test_path(), "fixtures"), full.names = TRUE), ~file.remove(.x))
+  purrr::map(list.files(file.path(test_path(), "fixtures"), full.names = TRUE), ~ file.remove(.x))
 
   save_fixture(get_datasets(), "get_datasets")
   save_fixture(get_datasets(tidy_data = FALSE), "get_datasets_untidy")
@@ -19,6 +19,6 @@ if (remake_fixtures) {
   )
   purrr::map(
     dataset_ids,
-    ~save_fixture(read_dataset_by_id(.x), glue::glue("dataset-{.x}"))
+    ~ save_fixture(read_dataset_by_id(.x), glue::glue("dataset-{.x}"))
   )
 }

@@ -17,7 +17,7 @@ data
 Show available datasets.
 }
 \examples{
-\dontshow{if (interactive()  && curl::has_internet()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (interactive() && curl::has_internet()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 get_datasets()
 \dontshow{\}) # examplesIf}
 }

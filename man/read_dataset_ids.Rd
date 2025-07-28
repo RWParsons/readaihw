@@ -23,7 +23,7 @@ data
 Read (multiple) datasets by id
 }
 \examples{
-\dontshow{if (interactive()  && curl::has_internet()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (interactive() && curl::has_internet()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 read_dataset_ids(c(1, 2))
 \dontshow{\}) # examplesIf}
 }

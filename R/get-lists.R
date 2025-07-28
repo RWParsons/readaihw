@@ -3,7 +3,7 @@
 #' @return data
 #' @export
 #'
-#' @examplesIf interactive()  && curl::has_internet()
+#' @examplesIf interactive() && curl::has_internet()
 #' get_hospital_mappings()
 get_hospital_mappings <- function() {
   call_myhosp_api("reporting-units-downloads/mappings")
@@ -14,7 +14,7 @@ get_hospital_mappings <- function() {
 #' @return data
 #' @export
 #'
-#' @examplesIf interactive()  && curl::has_internet()
+#' @examplesIf interactive() && curl::has_internet()
 #' get_measure_categories()
 get_measure_categories <- function() {
   res <- call_myhosp_api("measure-categories")
@@ -29,7 +29,7 @@ get_measure_categories <- function() {
 #' @return data
 #' @export
 #'
-#' @examplesIf interactive()  && curl::has_internet()
+#' @examplesIf interactive() && curl::has_internet()
 #' get_datasets()
 get_datasets <- function(tidy_data = TRUE) {
   res <- call_myhosp_api("datasets")
@@ -47,7 +47,7 @@ get_datasets <- function(tidy_data = TRUE) {
 #' @return data
 #' @export
 #'
-#' @examplesIf interactive()  && curl::has_internet()
+#' @examplesIf interactive() && curl::has_internet()
 #' get_measure_download_codes()
 get_measure_download_codes <- function() {
   res <- call_myhosp_api("measure-downloads/measure-download-codes")
@@ -63,7 +63,7 @@ get_measure_download_codes <- function() {
 #' @return data
 #' @export
 #'
-#' @examplesIf interactive()  && curl::has_internet()
+#' @examplesIf interactive() && curl::has_internet()
 #' get_measure_data("myh-adm")
 get_measure_data <- function(measure_download_code) {
   assertthat::assert_that(assertthat::is.string(measure_download_code))
