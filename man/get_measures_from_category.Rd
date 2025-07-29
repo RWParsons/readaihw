@@ -10,7 +10,7 @@ get_measures_from_category(measure_category_code, trim = TRUE)
 \item{measure_category_code}{A measure category code. See
 \code{get_measure_categories()} for a list.}
 
-\item{trim}{Whether or not to exclude the potentially unecessary variables.}
+\item{trim}{Whether or not to exclude the potentially unnecessary variables.}
 }
 \value{
 data

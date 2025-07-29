@@ -37,7 +37,7 @@ pak::pkg_install("RWParsons/readaihw")
 
 This example gets data on hospital presentations and presents these counts as a graph for hospitals in the Metro South (Qld) local hospital network over time.
 
-```{r example, message=FALSE, warning=FALSE}
+```{r example-ed-presentations, message=FALSE, warning=FALSE}
 library(readaihw)
 library(dplyr)
 library(ggplot2)
@@ -65,3 +65,25 @@ ed_presentations |>
   labs(x = "", y = "ED Presentations (n)", title = "ED presentations in the Metro South (Qld) LHN")
 ```
 
+## Example - Download all AIHW data to single .rds file
+For comprehensive analysis or offline work, you can download all available AIHW data at once.
+The bulk download includes version caching - subsequent calls will use cached data unless the underlying AIHW data has been updated.
+
+```{r example-download-all-aihw-data, eval=FALSE, message=FALSE, warning=FALSE}
+# Download all AIHW data into a single .rds
+data <- download_all_aihw_data()
+
+# aihw_data.rds file contains all AIHW data with elements:
+# - datasets: All available datasets
+# - measures: All measures across categories
+# - reporting_units: Hospital and facility information
+# - measure_categories: Available measure categories
+# - hospital_mappings: Hospital location mappings
+# - flat_data: All flat data extracts
+# - downloaded: Timestamp of download
+# - version_hash: Hash for cache validation
+
+# Access specific components
+hospital_data <- data$flat_data
+available_measures <- data$measures
+```

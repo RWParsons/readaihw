@@ -38,3 +38,53 @@ test_that("get_measure_data() works with get_measure_download_codes() codes", {
   )
   expect_s3_class(d_category_measure, "data.frame")
 })
+
+test_that("get_all_flat_data() works offline with mocked data", {
+  source(test_path("helper-get-fixture.R"))
+
+  local_mocked_bindings(
+    get_measure_categories = function() {
+      data.frame(
+        measure_category_code = c("MYH-CANCER", "MYH-ED"),
+        stringsAsFactors = FALSE
+      )
+    },
+    read_flat_data_extract = function(category_code, ...) {
+      data.frame(
+        category = category_code,
+        value = runif(5),
+        reporting_unit_code = paste0("UNIT", 1:5),
+        stringsAsFactors = FALSE
+      )
+    }
+  )
+
+  result <- httptest2::without_internet(get_all_flat_data())
+  expect_s3_class(result, "data.frame")
+  expect_true(nrow(result) > 0)
+  expect_true("category" %in% names(result))
+})
+
+test_that("get_measures() works offline with mocked data", {
+  local_mocked_bindings(
+    get_measure_categories = function() {
+      data.frame(
+        measure_category_code = c("MYH-CANCER", "MYH-ED"),
+        stringsAsFactors = FALSE
+      )
+    },
+    get_measures_from_category = function(category_code, trim = FALSE) {
+      data.frame(
+        measure_code = paste0(category_code, "_001"),
+        measure_name = paste("Test measure for", category_code),
+        category = category_code,
+        stringsAsFactors = FALSE
+      )
+    }
+  )
+
+  result <- httptest2::without_internet(get_measures())
+  expect_s3_class(result, "data.frame")
+  expect_true(nrow(result) > 0)
+  expect_true("measure_code" %in% names(result))
+})

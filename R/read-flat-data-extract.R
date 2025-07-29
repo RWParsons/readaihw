@@ -34,14 +34,33 @@ read_flat_data_extract <- function(measure_category_code, measure_code, return_c
   skips <- seq(from = 0, to = total_rows - 1, by = max_rows)
   tops <- purrr::map(skips, ~ min(c(max_rows, total_rows - .x)))
 
+  # Progress message
+  estimated_minutes <- round(length(skips) * 2.5 / 60, 1)  # Account for rate limiting
+  message(glue::glue("Downloading {format(total_rows, big.mark = ',')} rows from {measure_category_code} in {length(skips)} chunks (~{estimated_minutes} min)"))
+
+  category_start_time <- Sys.time()
+
   dframes <- purrr::map2(
     .x = skips, .y = tops,
-    .f = ~ call_flat_data_segment(
-      url = paste0("flat-data-extract/", measure_category_code),
-      measure_code_str = measure_code_str,
-      skip = .x,
-      top = .y
-    )
+    .f = ~ {
+      result <- call_flat_data_segment(
+        url = paste0("flat-data-extract/", measure_category_code),
+        measure_code_str = measure_code_str,
+        skip = .x,
+        top = .y
+      )
+
+      # Progress updates
+      current_index <- which(skips == .x)
+
+      # Show progress every 10 calls
+      if(current_index %% 10 == 0) {
+        elapsed_time <- round(as.numeric(Sys.time() - category_start_time, units = "secs"), 1)
+        message(glue::glue("  Progress: {current_index}/{length(skips)} chunks completed ({elapsed_time}s elapsed)"))
+      }
+
+      return(result)
+    }
   )
 
   dframes |>

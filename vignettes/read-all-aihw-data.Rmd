@@ -1,0 +1,74 @@
+---
+title: "download-all-aihw-data"
+author: "Beth Firipis"
+date: "2025-07-25"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{download-all-aihw-data}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  eval = FALSE # Set to FALSE to prevent long downloads during package build
+)
+```
+
+```{r, message=FALSE, warning=FALSE}
+library(readaihw)
+library(dplyr)
+```
+
+## Overview
+
+The readaihw package includes functionality to download all available AIHW MyHospitals data in one go, with intelligent caching to avoid unnecessary re-downloads.
+
+## Basic Usage
+
+```{r}
+# Download all data to default file (aihw_data.rds)
+all_data <- download_all_aihw_data()
+
+# Or specify a custom file location
+all_data <- download_all_aihw_data("my_aihw_data.rds")
+```
+
+The downloaded data includes: datasets, measures, reporting units, measure categories, hospital mappings, flat data, download timestamp, and version hash for cache validation.
+
+## Caching System
+
+The package includes intelligent caching that detects data updates and avoids redundant downloads:
+
+```{r}
+# First download - will fetch fresh data
+data1 <- download_all_aihw_data("cached_data.rds")
+#> Downloading AIHW data...
+#> Saved 6527 datasets, 33 measures, 1423 reporting units
+
+# Second call - uses cached data if current
+data2 <- download_all_aihw_data("cached_data.rds")
+#> cached_data.rds already exists and is the latest release (downloaded: 2024-01-15 10:30), use download_all_aihw_data(force=TRUE) to force download
+
+# Force fresh download
+data3 <- download_all_aihw_data("cached_data.rds", force = TRUE)
+#> Downloading AIHW data...
+```
+
+## Working with Downloaded Data
+
+```{r}
+# Access specific components
+head(all_data$datasets)
+head(all_data$flat_data)
+
+# Find emergency department data
+ed_data <- all_data$flat_data |>
+  filter(str_detect(measure_name, "Emergency"))
+
+# Find mental health datasets
+mental_health_data <- all_data$datasets |>
+  filter(str_detect(tolower(reported_measure_name), "mental"))
+```

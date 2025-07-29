@@ -3,11 +3,16 @@ Title: Read Hospital Data From the Australian Institute Of Health And Welfare
     Using The MyHospitals API
 Version: 0.0.2.9000
 Authors@R: 
-    person(given = "Rex", 
+    c(person(given = "Rex", 
            family = "Parsons", 
            role = c("aut", "cre"),
            email = "rex.parsons94@gmail.com",
-           comment = c(ORCID = "0000-0002-6053-8174"))
+           comment = c(ORCID = "0000-0002-6053-8174")),
+    person(given = "Beth",
+           family = "Firipis",
+           role = c("ctb"),
+           email = "bfiripis@gmail.com",
+           comment = c(ORCID = "0009-0008-3477-5003")))
 Description: Uses the MyHospitals API so that hospital data from the AIHW can be
     accessed from R.
 License: MIT + file LICENSE
