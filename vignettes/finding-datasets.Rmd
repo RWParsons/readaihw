@@ -20,9 +20,33 @@ library(dplyr)
 library(stringr)
 ```
 
+
+## Terminology 
+
+
+The MyHospitals API organises data into a measure hierarchy:
+
+- measure category – A grouping of measures. For example: MyHospitals ED Waiting Times
+
+    - measure – A statistic used to measure something. For example: Percentage of patients who commenced treatment within the recommended time
+
+      - reported measure – A disaggregated measure. For example: Percentage of patients who commenced treatment within the recommended time (urgent presentations only)
+      
+(See the end of this vignette for a full table.)
+
+
+reporting unit: What unit of analysis a specific data value corresponds to. This could be a specific hospital, or a geographical area like a state or territory.
+
+
+dataset: Represents a specific data period for a specific reported measure and is used to group comparable data values. A data period may cover a financial year, like for emergency department waiting times or it may cover a specific Audit period, like for hand hygiene rates.
+
+flat data extract: returns data from the API in a flattened format for a specified measure category (or measure) and can have filters applied in the API call.
+
 ## Example - finding hospital admission counts for mental health
 
-```{r}
+... by searching all datasets
+
+```{r, message=FALSE}
 # get the available datasets
 d_datasets <- get_datasets()
 
@@ -48,3 +72,100 @@ d_mental_health_admissions |>
   )
 ```
 
+## Recreated examples from the [AIHW site](https://www.aihw.gov.au/hospitals/other-resources/myhospitals-api)
+
+
+### Example 1.1 - getting data by measure
+
+A "measure" is a collection of measured variables. Measures are grouped within "measure categories" and contain (potentially) many "reported measures".
+
+```{r, message=FALSE}
+# choose a measure category
+get_measure_categories()
+
+# choose a measure from those in the category
+get_measures_from_category("MYH-ED-WAITS")
+
+get_measure_data("MYH0010") |>
+  glimpse()
+```
+
+### Example 1.2 - getting data by reported measure
+
+`get_reported_measures()` returns the "reported measures" and the "measures" which they are nested within. If we filter to view only the measure code MYH0010 (Percentage of patients who commenced treatment within the recommended time), we can see that there are several reported measures within. These reported measures are the separate measures for the metric described by the measure by for each triage category.
+
+If we are only interested in this measure (percent of patients seen on time) for urgent presentations, we can read the data specifically for the "MYH-RM0037" reported measure.
+
+```{r, message=FALSE}
+# choose a reported measure
+get_reported_measures() |>
+  filter(measure_measure_code == "MYH0010") |> # filter by a measure code
+  select(
+    measure_measure_code, measure_measure_name,
+    reported_measure_categories_reported_measure_category_type_reported_measure_category_type_code,
+    reported_measure_code, reported_measure_name
+  ) |>
+  glimpse()
+
+# get data relating to a specific reported measure
+get_reported_measure_data("MYH-RM0037") |>
+  glimpse()
+```
+
+
+### Example 2 - getting data by reporting unit
+
+```{r, message=FALSE}
+# choose reporting unit
+get_reporting_units()
+
+# get data
+get_reporting_unit_data("H0021") |>
+  glimpse()
+```
+
+
+### Example 3 - getting data by dataset
+
+This is the process that was used in the first example (but here just replicating the example by the AIHW documentation).
+
+```{r}
+# choose dataset ID
+get_datasets() |>
+  glimpse()
+
+# get data
+read_dataset_ids("41")
+```
+
+### Example 4 - getting data in a flat data extract
+
+```{r, eval=FALSE}
+# choose measure category
+get_measure_categories()
+
+# read flat data (output not shown due to excessive run time)
+read_flat_data_extract(measure_category_code = "MYH-ES")
+```
+
+This process can also be done by the specific measure code rather than the measure category
+
+```{r, eval=FALSE}
+# read flat data for specific measure code within measure category
+# (output not shown due to excessive run time)
+read_flat_data_extract(measure_category_code = "MYH-ES", measure_code = "MYH0006")
+```
+
+
+## Measure Hierarchy
+
+```{r, message=FALSE, echo=FALSE}
+library(flextable)
+d_heirarchy <- get_measure_hierarchy()
+
+d_heirarchy |>
+  flextable() |>
+  merge_v(j = names(d_heirarchy)) |>
+  theme_vanilla() |>
+  autofit()
+```

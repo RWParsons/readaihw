@@ -6,6 +6,8 @@
 #' @param return_caveats A logical. Whether or not to return the caveats for
 #' this data in a separate table. If `TRUE`, this will return a list with the
 #' two tables.
+#' @param .progress Whether to show a progress bar when reading subset data
+#' from API.
 #'
 #' @return data
 #' @export
@@ -13,21 +15,35 @@
 #' @examplesIf interactive() && curl::has_internet()
 #' read_flat_data_extract(measure_category_code = "MYH-CANCER")
 #' read_flat_data_extract(measure_category_code = "MYH-CANCER", measure_code = "MYH0001")
-read_flat_data_extract <- function(measure_category_code, measure_code, return_caveats = FALSE) {
+read_flat_data_extract <- function(
+    measure_category_code,
+    measure_code,
+    return_caveats = FALSE,
+    .progress = TRUE) {
   assertthat::assert_that(assertthat::is.string(measure_category_code))
-  assertthat::assert_that(measure_category_code %in% get_measure_categories()$measure_category_code)
+  assertthat::assert_that(
+    measure_category_code %in% get_measure_categories()$measure_category_code
+  )
 
   measure_code_str <- ""
   if (!missing(measure_code)) {
     assertthat::assert_that(assertthat::is.string(measure_code))
-    assertthat::assert_that(measure_code %in% get_measures_from_category(measure_category_code)$measure_code)
+    assertthat::assert_that(
+      measure_code %in%
+        get_measures_from_category(measure_category_code)$measure_code
+    )
 
     measure_code_str <- paste0("&measure_code=", measure_code)
   }
 
   max_rows <- 1000
 
-  res <- call_myhosp_api(paste0("flat-data-extract/", measure_category_code, "?skip=0&top=5", measure_code_str))
+  res <- call_myhosp_api(paste0(
+    "flat-data-extract/",
+    measure_category_code,
+    "?skip=0&top=5",
+    measure_code_str
+  ))
 
   total_rows <- res$result$pagination$total_results_available
 
@@ -35,13 +51,15 @@ read_flat_data_extract <- function(measure_category_code, measure_code, return_c
   tops <- purrr::map(skips, ~ min(c(max_rows, total_rows - .x)))
 
   dframes <- purrr::map2(
-    .x = skips, .y = tops,
+    .x = skips,
+    .y = tops,
     .f = ~ call_flat_data_segment(
       url = paste0("flat-data-extract/", measure_category_code),
       measure_code_str = measure_code_str,
       skip = .x,
       top = .y
-    )
+    ),
+    .progress = .progress
   )
 
   dframes |>
@@ -59,7 +77,9 @@ tidy_resp_to_df <- function(result) {
 call_flat_data_segment <- function(url, skip, top, measure_code_str) {
   skip <- format(skip, scientific = FALSE)
   top <- format(top, scientific = FALSE)
-  res <- call_myhosp_api(as.character(glue::glue("{url}?skip={skip}&top={top}{measure_code_str}")))
+  res <- call_myhosp_api(as.character(glue::glue(
+    "{url}?skip={skip}&top={top}{measure_code_str}"
+  )))
   tidy_resp_to_df(res$result$data)
 }
 

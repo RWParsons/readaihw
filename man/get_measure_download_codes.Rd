@@ -13,7 +13,7 @@ data
 Get set of measure download codes that can be used in \code{get_measure_data()}.
 }
 \examples{
-\dontshow{if (interactive() && curl::has_internet()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (interactive() && curl::has_internet()) withAutoprint(\{ # examplesIf}
 get_measure_download_codes()
 \dontshow{\}) # examplesIf}
 }

@@ -2,7 +2,7 @@
 #'
 #' @param measure_category_code A measure category code. See
 #' `get_measure_categories()` for a list.
-#' @param trim Whether or not to exclude the potentially unecessary variables.
+#' @param trim Whether or not to exclude the potentially unnecessary variables.
 #'
 #' @return data
 #' @export
@@ -10,7 +10,9 @@
 #' @examplesIf interactive() && curl::has_internet()
 #' get_measures_from_category("MYH-CANCER")
 get_measures_from_category <- function(measure_category_code, trim = TRUE) {
-  url <- as.character(glue::glue("measure-categories/{measure_category_code}/measures"))
+  url <- as.character(glue::glue(
+    "measure-categories/{measure_category_code}/measures"
+  ))
   d <- call_myhosp_api(url)$result |>
     tidy_resp_to_df()
 
@@ -20,6 +22,58 @@ get_measures_from_category <- function(measure_category_code, trim = TRUE) {
   }
 
   d
+}
+
+
+#' Read datasets by the measure code.
+#'
+#' @param measure_code A measure code. For example, "MYH0001".
+#'
+#' @returns data
+#' @export
+#'
+#' @examplesIf interactive() && curl::has_internet()
+#' get_measure_data("MYH0001")
+get_measure_data <- function(measure_code) {
+  url <- as.character(glue::glue("measures/{measure_code}/data-items"))
+  call_myhosp_api(url)$result |>
+    tidy_resp_to_df()
+}
+
+
+#' Read datasets by the reported measure code.
+#'
+#' @param reported_measure_code A reported measure code. For example, "MYH-RM0037".
+#'
+#' @returns data
+#' @export
+#'
+#' @examplesIf interactive() && curl::has_internet()
+#' get_reported_measure_data("MYH-RM0037")
+get_reported_measure_data <- function(reported_measure_code) {
+  url <- as.character(glue::glue(
+    "reported-measures/{reported_measure_code}/data-items"
+  ))
+  call_myhosp_api(url)$result |>
+    tidy_resp_to_df()
+}
+
+
+#' Read datasets by the reporting unit code.
+#'
+#' @param reporting_unit_code A measure code. For example, "H0012".
+#'
+#' @returns data
+#' @export
+#'
+#' @examplesIf interactive() && curl::has_internet()
+#' get_reporting_unit_data("H0012")
+get_reporting_unit_data <- function(reporting_unit_code) {
+  url <- as.character(glue::glue(
+    "reporting-units/{reporting_unit_code}/data-items"
+  ))
+  call_myhosp_api(url)$result |>
+    tidy_resp_to_df()
 }
 
 
@@ -44,7 +98,9 @@ read_dataset_ids <- function(ids, return_caveats = FALSE, tidy_data = TRUE) {
   if (any(!ids %in% d_datasets$data_set_id)) {
     missing_ids <- ids[!ids %in% d_datasets$data_set_id] |>
       paste0(collapse = ", ")
-    warning(glue::glue("IDs passed were not valid (available in `get_datasets()`): {missing_ids}"))
+    warning(glue::glue(
+      "IDs passed were not valid (available in `get_datasets()`): {missing_ids}"
+    ))
   }
 
   dframes <- d_datasets$data_set_id |>

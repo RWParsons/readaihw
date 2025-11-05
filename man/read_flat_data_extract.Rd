@@ -7,7 +7,8 @@
 read_flat_data_extract(
   measure_category_code,
   measure_code,
-  return_caveats = FALSE
+  return_caveats = FALSE,
+  .progress = TRUE
 )
 }
 \arguments{
@@ -19,6 +20,9 @@ read_flat_data_extract(
 \item{return_caveats}{A logical. Whether or not to return the caveats for
 this data in a separate table. If \code{TRUE}, this will return a list with the
 two tables.}
+
+\item{.progress}{Whether to show a progress bar when reading subset data
+from API.}
 }
 \value{
 data
@@ -27,7 +31,7 @@ data
 Get data by measure category.
 }
 \examples{
-\dontshow{if (interactive() && curl::has_internet()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (interactive() && curl::has_internet()) withAutoprint(\{ # examplesIf}
 read_flat_data_extract(measure_category_code = "MYH-CANCER")
 read_flat_data_extract(measure_category_code = "MYH-CANCER", measure_code = "MYH0001")
 \dontshow{\}) # examplesIf}

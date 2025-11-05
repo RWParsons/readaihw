@@ -15,7 +15,10 @@ test_that("get_measure_data() works with get_measure_download_codes() codes", {
   # test that it works for 3 randomly selected codes
   purrr::map(
     sample(codes, size = 3),
-    ~ expect_s3_class(suppressWarnings(get_measure_data(.x)), "data.frame")
+    ~ expect_s3_class(
+      suppressWarnings(get_measure_data_from_download_code(.x)),
+      "data.frame"
+    )
   )
 })
 

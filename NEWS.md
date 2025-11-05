@@ -1,5 +1,9 @@
 # readaihw (development version)
 
+* replicate all of the AIHWs examples on their online documentation in the 
+  finding-datasets vignette. Required making some more functions and describing
+  the structure of the API better.
+
 # readaihw 0.0.2
 
 * update README to use MSH for example ED presentations extract/analysis.
