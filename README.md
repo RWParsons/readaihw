@@ -24,11 +24,13 @@ API](https://myhospitalsapi.aihw.gov.au/index.html).
 
 ## Installation
 
-You can install the development version of readaihw like so:
+You can install either the development or the latest release of
+readaihw:
 
 ``` r
 # install.packages("pak")
-pak::pkg_install("RWParsons/readaihw")
+pak::pkg_install("RWParsons/readaihw") # development version
+pak::pkg_install("RWParsons/readaihw@*release") # latest release version
 ```
 
 ## Example - ED presentations
