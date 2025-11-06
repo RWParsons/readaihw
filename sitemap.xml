@@ -15,8 +15,14 @@
 <url><loc>https://rwparsons.github.io/readaihw/reference/get_hospital_mappings.html</loc></url>
 <url><loc>https://rwparsons.github.io/readaihw/reference/get_measure_categories.html</loc></url>
 <url><loc>https://rwparsons.github.io/readaihw/reference/get_measure_data.html</loc></url>
+<url><loc>https://rwparsons.github.io/readaihw/reference/get_measure_data_from_download_code.html</loc></url>
 <url><loc>https://rwparsons.github.io/readaihw/reference/get_measure_download_codes.html</loc></url>
+<url><loc>https://rwparsons.github.io/readaihw/reference/get_measure_hierarchy.html</loc></url>
 <url><loc>https://rwparsons.github.io/readaihw/reference/get_measures_from_category.html</loc></url>
+<url><loc>https://rwparsons.github.io/readaihw/reference/get_reported_measure_data.html</loc></url>
+<url><loc>https://rwparsons.github.io/readaihw/reference/get_reported_measures.html</loc></url>
+<url><loc>https://rwparsons.github.io/readaihw/reference/get_reporting_unit_data.html</loc></url>
+<url><loc>https://rwparsons.github.io/readaihw/reference/get_reporting_units.html</loc></url>
 <url><loc>https://rwparsons.github.io/readaihw/reference/index.html</loc></url>
 <url><loc>https://rwparsons.github.io/readaihw/reference/read_dataset_ids.html</loc></url>
 <url><loc>https://rwparsons.github.io/readaihw/reference/read_flat_data_extract.html</loc></url>

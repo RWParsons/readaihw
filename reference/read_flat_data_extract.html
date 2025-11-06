@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">readaihw</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.2.9000</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -33,7 +33,7 @@
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Get data by measure category.</h1>
-      <small class="dont-index">Source: <a href="https://github.com/RWParsons/readaihw/blob/v0.0.2/R/read-flat-data-extract.R" class="external-link"><code>R/read-flat-data-extract.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/RWParsons/readaihw/blob/main/R/read-flat-data-extract.R" class="external-link"><code>R/read-flat-data-extract.R</code></a></small>
       <div class="d-none name"><code>read_flat_data_extract.Rd</code></div>
     </div>
 
@@ -46,7 +46,8 @@
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">read_flat_data_extract</span><span class="op">(</span></span>
 <span>  <span class="va">measure_category_code</span>,</span>
 <span>  <span class="va">measure_code</span>,</span>
-<span>  return_caveats <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span>  return_caveats <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  .progress <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -67,6 +68,11 @@
 <dd><p>A logical. Whether or not to return the caveats for
 this data in a separate table. If <code>TRUE</code>, this will return a list with the
 two tables.</p></dd>
+
+
+<dt id="arg--progress">.progress<a class="anchor" aria-label="anchor" href="#arg--progress"></a></dt>
+<dd><p>Whether to show a progress bar when reading subset data
+from API.</p></dd>
 
 </dl></div>
     <div class="section level2">
