@@ -1,3 +1,20 @@
+#' Get all reporting units.
+#'
+#' @return data
+#' @export
+#'
+#' @examplesIf interactive() && curl::has_internet()
+#' get_reporting_units()
+get_reporting_units <- function() {
+  call_myhosp_api("reporting-units")$result |>
+    purrr::map(
+      \(.x) {
+        .x[names(.x) != "mapped_reporting_units"]
+      }
+    ) |>
+    tidy_resp_to_df()
+}
+
 #' Get mappings and locations for hospitals.
 #'
 #' @return data
@@ -6,8 +23,50 @@
 #' @examplesIf interactive() && curl::has_internet()
 #' get_hospital_mappings()
 get_hospital_mappings <- function() {
-  call_myhosp_api("reporting-units-downloads/mappings")
+  call_myhosp_api("reporting-units-downloads/mappings") |>
+    dplyr::filter(type == "Hospital")
 }
+
+
+#' Get the hierarchy of measure categories - measures - reported measures.
+#'
+#' @returns data
+#' @export
+#'
+#' @examplesIf interactive() && curl::has_internet()
+#' get_measure_hierarchy()
+get_measure_hierarchy <- function() {
+  d_measure_cats <- get_measure_categories()
+
+  d_measures <- purrr::map(
+    d_measure_cats$measure_category_code,
+    \(.x) {
+      get_measures_from_category(.x) |>
+        dplyr::mutate(measure_category_code = .x)
+    }
+  ) |>
+    dplyr::bind_rows()
+
+  d_reported_measures <- get_reported_measures() |>
+    dplyr::select(
+      measure_code = measure_measure_code,
+      reported_measure_category_type_code = reported_measure_categories_reported_measure_category_type_reported_measure_category_type_code,
+      reported_measure_category_type_name = reported_measure_categories_reported_measure_category_type_reported_measure_category_type_name,
+      reported_measure_code,
+      reported_measure_name
+    )
+
+  d_measure_cats |>
+    dplyr::left_join(d_measures, by = "measure_category_code") |>
+    dplyr::left_join(d_reported_measures, by = "measure_code") |>
+    dplyr::select(
+      dplyr::starts_with("measure_category"),
+      dplyr::starts_with("measure"),
+      dplyr::starts_with("reported_measure"),
+      dplyr::everything()
+    )
+}
+
 
 #' Get set of measure categories which can be used in `read_flat_data_extract()`.
 #'
@@ -18,6 +77,18 @@ get_hospital_mappings <- function() {
 #' get_measure_categories()
 get_measure_categories <- function() {
   res <- call_myhosp_api("measure-categories")
+  tidy_resp_to_df(res$result)
+}
+
+#' Get reported measures.
+#'
+#' @return data
+#' @export
+#'
+#' @examplesIf interactive() && curl::has_internet()
+#' get_reported_measures()
+get_reported_measures <- function() {
+  res <- call_myhosp_api("reported-measures")
   tidy_resp_to_df(res$result)
 }
 
@@ -65,9 +136,11 @@ get_measure_download_codes <- function() {
 #'
 #' @examplesIf interactive() && curl::has_internet()
 #' get_measure_data("myh-adm")
-get_measure_data <- function(measure_download_code) {
+get_measure_data_from_download_code <- function(measure_download_code) {
   assertthat::assert_that(assertthat::is.string(measure_download_code))
-  assertthat::assert_that(measure_download_code %in% get_measure_download_codes()$datasheet_code)
+  assertthat::assert_that(
+    measure_download_code %in% get_measure_download_codes()$datasheet_code
+  )
 
   call_myhosp_api(paste0("measure-downloads/", measure_download_code))
 }

@@ -19,16 +19,18 @@ that hospital data from the AIHW can be accessed directly from R. For
 details about what data are provided by the AIHW see
 [here](https://www.aihw.gov.au/about-our-data/our-data-collections). See
 [here](https://www.aihw.gov.au/reports-data/myhospitals/content/api) for
-details about the [MyHospital
+details about the [MyHospitals
 API](https://myhospitalsapi.aihw.gov.au/index.html).
 
 ## Installation
 
-You can install the development version of readaihw like so:
+You can install either the development or the latest release of
+readaihw:
 
 ``` r
 # install.packages("pak")
-pak::pkg_install("RWParsons/readaihw")
+pak::pkg_install("RWParsons/readaihw") # development version
+pak::pkg_install("RWParsons/readaihw@*release") # latest release version
 ```
 
 ## Example - ED presentations
@@ -42,13 +44,10 @@ library(readaihw)
 library(dplyr)
 library(ggplot2)
 
-ed_presentations <- read_flat_data_extract("MYH-ED")
+ed_presentations <- read_flat_data_extract("MYH-ED", measure_code = "MYH0035")
 
 msh_hospital_codes <- get_hospital_mappings() |>
-  filter(
-    local_hospital_network_lhn == "Metro South (Qld)",
-    type == "Hospital"
-  ) |>
+  filter(local_hospital_network_lhn == "Metro South (Qld)") |>
   pull(code)
 
 ed_presentations |>

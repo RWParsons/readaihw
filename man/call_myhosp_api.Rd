@@ -16,7 +16,7 @@ something useful, usually a \code{data.frame}
 Call the MyHospitals API
 }
 \examples{
-\dontshow{if (interactive() && curl::has_internet()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (interactive() && curl::has_internet()) withAutoprint(\{ # examplesIf}
 call_myhosp_api("measure-downloads/myh-adm")
 \dontshow{\}) # examplesIf}
 }
